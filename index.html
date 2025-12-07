@@ -16,7 +16,7 @@ button { font-size:24px; padding:15px; margin:10px; }
 <button onclick="ledOff()">LED OFF</button>
 
 <script>
-const apiUrl = "192.168.1.55"; // ESP IP adresi
+const apiUrl = "http://192.168.1.55"; // ESP IP adresi
 
 function ledOn(){
   fetch(apiUrl+"/on").then(updateStatus);
