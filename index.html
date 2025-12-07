@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED Kontrol PWA</title>
+<link rel="manifest" href="/manifest.json">
+<style>
+body { text-align:center; font-family:sans-serif; margin-top:50px; }
+button { font-size:24px; padding:15px; margin:10px; }
+</style>
+</head>
+<body>
+<h2>LED Kontrol</h2>
+<button onclick="ledOn()">LED ON</button>
+<button onclick="ledOff()">LED OFF</button>
+
+<script>
+const apiUrl = "http://192.168.1.55"; // ESP IP adresi
+
+function ledOn(){
+  fetch(apiUrl+"/on").then(updateStatus);
+}
+function ledOff(){
+  fetch(apiUrl+"/off").then(updateStatus);
+}
+
+function updateStatus(){
+  fetch(apiUrl+"/status")
+  .then(resp => resp.json())
+  .then(data => console.log("LED Durumu:", data.status));
+}
+
+// Service Worker kaydı
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js');
+}
+</script>
+</body>
+</html>
